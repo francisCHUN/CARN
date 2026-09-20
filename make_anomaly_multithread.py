@@ -4,7 +4,6 @@ from anomaly_generator import traditional_contextual_anomaly_generator, global_a
 from anomaly_generator.LLM_contextual_anomaly import generate_LLM_text, TOKENS, SYSTEM_PROMPT, USER_PROMPT_CORA, USER_PROMPT_CITESEER, USER_PROMPT_PUBMED, USER_PROMPT_ARXIV, USER_PROMPT_WIKICS
 from anomaly_generator.LLM_subtle_anomaly import USER_PROMPT_SUBTLE, _pick_desc
 import anomaly_generator.LLM_contextual_anomaly as llm_ctx
-import sohoyo_query
 from anomaly_generator.utils import encode_text
 from anomaly_generator.anomaly_list import ANOMALY_TYPE_LIST
 from data.raw_data_loader import LLMGNNDataLoader
@@ -74,6 +73,7 @@ def load_from_huggingface(dataset_name: str) -> List[str]:
 
 def setup_llm_backend(backend: str, model_name: str = None) -> None:
     if backend == "sohoyo":
+        import sohoyo_query
         llm_ctx.LLM_MODEL = model_name or sohoyo_query.MODEL
 
         def _sohoyo_call_llm(prompt: str, model: str, token: str,
